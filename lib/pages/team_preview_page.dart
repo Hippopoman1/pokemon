@@ -1,4 +1,3 @@
-
 // =============================
 // pages/team_preview_page.dart
 // =============================
@@ -23,7 +22,7 @@ class TeamPreviewPage extends StatelessWidget {
             tooltip: 'Reset Team',
             onPressed: () => c.resetTeam(),
             icon: const Icon(Icons.refresh),
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -31,25 +30,34 @@ class TeamPreviewPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(children: [
-              Expanded(
-                child: Obx(() => TextField(
-                      controller: TextEditingController(text: c.teamName.value)
-                        ..selection = TextSelection.collapsed(offset: c.teamName.value.length),
-                      onSubmitted: (v) => c.setTeamName(v.trim().isNotEmpty ? v.trim() : 'My Team'),
+            Row(
+              children: [
+                Expanded(
+                  child: Obx(
+                    () => TextFormField(
+                      initialValue: c.teamName.value,
                       decoration: const InputDecoration(
                         labelText: 'Team Name',
                         border: OutlineInputBorder(),
                       ),
-                    )),
-              ),
-              const SizedBox(width: 12),
-              Obx(() => FilledButton.icon(
-                    onPressed: c.selectedIds.isEmpty ? null : () => _instantSaveAndOpen(context, c),
+                      onChanged: (v) => c.setTeamName(
+                        v.trim().isNotEmpty ? v.trim() : 'My Team',
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Obx(
+                  () => FilledButton.icon(
+                    onPressed: c.selectedIds.isEmpty
+                        ? null
+                        : () => _instantSaveAndOpen(context, c),
                     icon: const Icon(Icons.save),
                     label: const Text('Save'),
-                  )),
-            ]),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 16),
             Obx(() {
               final ids = c.selectedIds.toList();
@@ -58,7 +66,12 @@ class TeamPreviewPage extends StatelessWidget {
                 spacing: 12,
                 runSpacing: 12,
                 children: ids
-                    .map((id) => TeamCard(id: id, onRemove: () => c.selectedIds.remove(id)))
+                    .map(
+                      (id) => TeamCard(
+                        id: id,
+                        onRemove: () => c.selectedIds.remove(id),
+                      ),
+                    )
                     .toList(),
               );
             }),
@@ -96,7 +109,10 @@ class _EmptyTeam extends StatelessWidget {
         children: [
           const Icon(Icons.catching_pokemon, size: 72),
           const SizedBox(height: 10),
-          Text('No Pokémon selected', style: Theme.of(context).textTheme.titleMedium),
+          Text(
+            'No Pokémon selected',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           const SizedBox(height: 4),
           const Text('Pick up to 3 Pokémon from the list'),
         ],
