@@ -4,7 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'controllers/team_controller.dart';
 import 'pages/pokemon_list_page.dart';
 import 'pages/team_preview_page.dart';
-
+import 'pages/getX.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
       home: const PokemonListPage(),
       getPages: [
         GetPage(name: '/preview', page: () => const TeamPreviewPage()),
+        GetPage(name: '/about', page: () => const AboutPage()),
       ],
     );
   }

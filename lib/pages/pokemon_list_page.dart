@@ -50,6 +50,11 @@ class _PokemonListPageState extends State<PokemonListPage> {
             onPressed: () => Get.toNamed('/preview'),
             icon: const Icon(Icons.groups),
           ),
+          IconButton(
+            tooltip: 'About',
+            onPressed: () => Get.toNamed('/about'),
+            icon: const Icon(Icons.info),
+          ),
         ],
       ),
       body: Column(
@@ -61,7 +66,9 @@ class _PokemonListPageState extends State<PokemonListPage> {
               decoration: InputDecoration(
                 hintText: 'Search Pokémon…',
                 prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
               ),
             ),
           ),
@@ -82,10 +89,15 @@ class _PokemonListPageState extends State<PokemonListPage> {
                   final q = c.query.value.toLowerCase();
                   final filtered = q.isEmpty
                       ? list
-                      : list.where((p) => p.name.toLowerCase().contains(q)).toList();
+                      : list
+                            .where((p) => p.name.toLowerCase().contains(q))
+                            .toList();
 
                   return ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     itemCount: filtered.length,
                     itemBuilder: (_, i) {
                       final p = filtered[i];
@@ -104,14 +116,18 @@ class _PokemonListPageState extends State<PokemonListPage> {
                 });
               },
             ),
-          )
+          ),
         ],
       ),
-      floatingActionButton: Obx(() => FloatingActionButton.extended(
-            onPressed: () => Get.toNamed('/preview'),
-            icon: const Icon(Icons.arrow_forward),
-            label: Text('Preview (${c.selectedIds.length}/${TeamController.maxTeamSize})'),
-          )),
+      floatingActionButton: Obx(
+        () => FloatingActionButton.extended(
+          onPressed: () => Get.toNamed('/preview'),
+          icon: const Icon(Icons.arrow_forward),
+          label: Text(
+            'Preview (${c.selectedIds.length}/${TeamController.maxTeamSize})',
+          ),
+        ),
+      ),
     );
   }
 }
